@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+<package name="strutshibernate" extends="struts-default">
+<!--登录的action  -->
+<!--内置拦截器加控制权限  -->
+<!-- <interceptors>
+<interceptor name="authorizationInterceptor" class="com.hp.filter.AuthorizationInterceptor"/>
+</interceptors>
+<global-results>
+<result name="login">/login.jsp</result>
+</global-results> -->
+<action name="login" class="com.hp.beanAction.LoginAction" method="execute">
+<result name="studentsuccess" type="chain">studentlogin</result>
+<result name="teachersuccess">/teacher/index.html</result>
+<result name="input">/login.jsp</result>
+<result name="error">/login.jsp</result>
+<!-- <interceptor-ref name="authorizationInterceptor"/> -->
+</action>
+<action name="studentlogin" class = "com.hp.beanAction.GetRandomSubject" method="execute">
+<result name="success">/student/index.jsp</result>
+<result name="error">/login.jsp</result>
+<result name="input">/login.jsp</result>
+</action>
+<!-- 添加试题 -->
+<action name="subjectAdd" class="com.hp.beanAction.SubjectAddAction" method="add">
+<result name="success">/teacher/addsubjectshow.jsp</result>
+<result name = "input">/teacher/subjectAdd.jsp</result>
+</action>
+<action name="subjectUpadate" class="com.hp.beanAction.SubjectUpdateAction" method="update">
+<result name="success">/teacher/executesuccess.jsp</result>
+<result name = "input">/teacher/subjectUpdate.jsp</result> 
+</action>
+<!--查找试题（按名字查找试题）  -->
+<action name="subjectLikeQuery" class="com.hp.beanAction.SubjectByTitleAction" method="query">
+<result name="success">/teacher/subjectShow1.jsp</result>
+</action>
+<!-- 管理实体 -->
+<action name = "subjectQuery" class="com.hp.beanAction.QueryListAction" method="execute">
+<result name = "success">/teacher/subjectManage.jsp</result>
+
+</action>
+<!--删除  -->
+<action name="subjectDelete" class="com.hp.beanAction.SubjectDeleteAction" method="delete">
+<result name="success">/teacher/executesuccess.jsp</result>
+<!-- <interceptor-ref name="authorizationInterceptor"/> -->
+</action>
+<!-- 查看 -->
+<action name="subjectParticular" class="com.hp.beanAction.SubjectDeleteAction" method="query"> 
+<result name="success">/teacher/subjectShow.jsp</result>
+</action>
+<action name="subjectUpadateBefore" class="com.hp.beanAction.SubjectDeleteAction" method="query">
+<result>/teacher/subjectUpdate.jsp</result>
+</action>
+<action name="queryStudentByName" class="com.hp.beanAction.queryByNameAction" method="execute">
+<result name = "success">/teacher/studentManage.jsp</result>
+</action>
+<action name="queryStudentByClass" class="com.hp.beanAction.queryByClassAction" method="execute">
+<result name="success">/teacher/studentManage.jsp</result>
+</action>
+<!--提交试卷，查询成绩-->
+<action name = "submitExam" class= "com.hp.beanAction.AcountResultAction" method="execute">
+<result name="success">/student/examResult.jsp</result>
+</action>
+<action name = "showSubjectAnswer" class="com.hp.beanAction.ShowSubjectAnswerAction" method="execute">
+<result name="success">/student/showAnswer.jsp</result>
+</action>
+</package>
+</struts>
